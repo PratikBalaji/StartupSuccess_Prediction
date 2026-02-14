@@ -5,7 +5,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-MODELS_PATH = os.path.join(os.path.dirname(__file__), '..', 'models')
+MODELS_PATH = os.path.join(os.path.dirname(__file__), 'models')
 
 model = joblib.load(os.path.join(MODELS_PATH, 'best_model.pkl'))
 label_encoder_y = joblib.load(os.path.join(MODELS_PATH, 'label_encoder_y.pkl'))
