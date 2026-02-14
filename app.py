@@ -38,18 +38,25 @@ def predict():
         industry_encoded = label_encoders['Industry'].transform([industry])[0]
         region_encoded = label_encoders['Region'].transform([region])[0]
         
-        features = np.array([[
+        # Numerical features (8)
+        numerical_features = np.array([[
             funding_rounds, funding_amount, valuation, revenue,
-            employees, market_share, profitable, year_founded,
-            industry_encoded, region_encoded
+            employees, market_share, profitable, year_founded
         ]])
         
-        features_scaled = scaler.transform(features)
+        # Scale numerical features
+        numerical_features_scaled = scaler.transform(numerical_features)
         
-        prediction = model.predict(features_scaled)
+        # Encoded categorical features (2)
+        categorical_features = np.array([[industry_encoded, region_encoded]])
+        
+        # Combine features (8 + 2 = 10)
+        final_features = np.hstack((numerical_features_scaled, categorical_features))
+        
+        prediction = model.predict(final_features)
         prediction_label = label_encoder_y.inverse_transform(prediction)[0]
         
-        probabilities = model.predict_proba(features_scaled)[0]
+        probabilities = model.predict_proba(final_features)[0]
         prob_dict = {
             label_encoder_y.classes_[i]: round(prob * 100, 2)
             for i, prob in enumerate(probabilities)
@@ -61,6 +68,8 @@ def predict():
         })
     
     except Exception as e:
+        import traceback
+        print(traceback.format_exc())
         return jsonify({'error': str(e)}), 400
 
 if __name__ == '__main__':
