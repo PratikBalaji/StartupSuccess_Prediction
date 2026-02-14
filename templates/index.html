@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Success Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            padding: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 5px;
+        }
+        
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .submit-btn {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 15px;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        .result.high {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .result.medium {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .result.low {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .result h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+        
+        .probabilities {
+            margin-top: 15px;
+        }
+        
+        .prob-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+        }
+        
+        .prob-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            margin-top: 5px;
+        }
+        
+        .prob-fill {
+            height: 100%;
+            background: white;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 600px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-group.full-width {
+                grid-column: span 1;
+            }
+            
+            .submit-btn {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Startup Success Predictor</h1>
+            <p>Predict your startup's potential for success</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="predictionForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="industry">Industry</label>
+                        <select id="industry" name="industry" required>
+                            {% for industry in industries %}
+                            <option value="{{ industry }}">{{ industry }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="region">Region</label>
+                        <select id="region" name="region" required>
+                            {% for region in regions %}
+                            <option value="{{ region }}">{{ region }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="funding_rounds">Funding Rounds</label>
+                        <input type="number" id="funding_rounds" name="funding_rounds" min="1" max="10" value="2" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="funding_amount">Funding Amount (M USD)</label>
+                        <input type="number" id="funding_amount" name="funding_amount" min="0" step="0.01" value="50" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="valuation">Valuation (M USD)</label>
+                        <input type="number" id="valuation" name="valuation" min="0" step="0.01" value="100" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="revenue">Revenue (M USD)</label>
+                        <input type="number" id="revenue" name="revenue" min="0" step="0.01" value="10" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="employees">Number of Employees</label>
+                        <input type="number" id="employees" name="employees" min="1" value="50" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="market_share">Market Share (%)</label>
+                        <input type="number" id="market_share" name="market_share" min="0" max="100" step="0.01" value="5" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profitable">Profitable</label>
+                        <select id="profitable" name="profitable" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year_founded">Year Founded</label>
+                        <input type="number" id="year_founded" name="year_founded" min="1990" max="2025" value="2020" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Predict Success</button>
+                </div>
+            </form>
+            
+            <div id="result" class="result">
+                <h2 id="predictionText"></h2>
+                <div class="probabilities">
+                    <div class="prob-item">
+                        <span>High Success (IPO)</span>
+                        <span id="probHigh"></span>
+                    </div>
+                    <div class="prob-bar"><div class="prob-fill" id="barHigh"></div></div>
+                    
+                    <div class="prob-item">
+                        <span>Medium Success (Acquired)</span>
+                        <span id="probMedium"></span>
+                    </div>
+                    <div class="prob-bar"><div class="prob-fill" id="barMedium"></div></div>
+                    
+                    <div class="prob-item">
+                        <span>Low Success (Private)</span>
+                        <span id="probLow"></span>
+                    </div>
+                    <div class="prob-bar"><div class="prob-fill" id="barLow"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                funding_rounds: document.getElementById('funding_rounds').value,
+                funding_amount: document.getElementById('funding_amount').value,
+                valuation: document.getElementById('valuation').value,
+                revenue: document.getElementById('revenue').value,
+                employees: document.getElementById('employees').value,
+                market_share: document.getElementById('market_share').value,
+                profitable: document.getElementById('profitable').value,
+                year_founded: document.getElementById('year_founded').value,
+                industry: document.getElementById('industry').value,
+                region: document.getElementById('region').value
+            };
+            
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.error) {
+                    alert('Error: ' + data.error);
+                    return;
+                }
+                
+                const resultDiv = document.getElementById('result');
+                resultDiv.className = 'result show';
+                
+                const predictionText = document.getElementById('predictionText');
+                predictionText.textContent = 'Prediction: ' + data.prediction;
+                
+                if (data.prediction === 'High Success') {
+                    resultDiv.classList.add('high');
+                } else if (data.prediction === 'Medium Success') {
+                    resultDiv.classList.add('medium');
+                } else {
+                    resultDiv.classList.add('low');
+                }
+                
+                document.getElementById('probHigh').textContent = data.probabilities['High Success'] + '%';
+                document.getElementById('probMedium').textContent = data.probabilities['Medium Success'] + '%';
+                document.getElementById('probLow').textContent = data.probabilities['Low Success'] + '%';
+                
+                document.getElementById('barHigh').style.width = data.probabilities['High Success'] + '%';
+                document.getElementById('barMedium').style.width = data.probabilities['Medium Success'] + '%';
+                document.getElementById('barLow').style.width = data.probabilities['Low Success'] + '%';
+                
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+    </script>
+</body>
+</html>
