@@ -4,3 +4,8 @@ __pycache__/
 venv/
 .env
 .DS_Store
+node_modules/
+dist/
+.vscode/
+frontend/dist/
+frontend/node_modules/

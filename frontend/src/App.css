@@ -1,0 +1,117 @@
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+.app-container {
+    width: 100%;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+}
+
+.form-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 800px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.submit-btn {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: transform 0.2s;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+}
+
+.results-container {
+    width: 100%;
+    max-width: 1000px;
+}
+
+.result-card {
+    padding: 2rem;
+    border-radius: 15px;
+    color: white;
+    margin-bottom: 2rem;
+    animation: fadeIn 0.5s;
+}
+
+.result-card.high { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+.result-card.medium { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+.result-card.low { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.chart-box {
+    background: rgba(255,255,255,0.9);
+    padding: 1.5rem;
+    border-radius: 15px;
+}
+
+.chart-wrapper {
+    position: relative; 
+    height: 300px;
+    width: 100%;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}

@@ -1,0 +1,19 @@
+{
+  "industries": [
+    "AI",
+    "Cybersecurity",
+    "E-Commerce",
+    "EdTech",
+    "FinTech",
+    "Gaming",
+    "HealthTech",
+    "IoT"
+  ],
+  "regions": [
+    "Asia",
+    "Australia",
+    "Europe",
+    "North America",
+    "South America"
+  ]
+}
