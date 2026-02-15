@@ -1,0 +1,18 @@
+# 🚀 Startup Success Rate Predictor
+
+ML-powered web application that predicts startup success outcomes (IPO, Acquired, or Private) based on funding, industry, and company metrics.
+
+![Demo](https://via.placeholder.com/800x400?text=Startup+Success+Predictor+Demo)
+
+## 📊 Dataset
+
+- **Source**: [Kaggle - Startup Growth and Funding Trends](https://www.kaggle.com/datasets/samayashar/startup-growth-and-funding-trends)
+- **Size**: 500 startups
+- **Features**: Industry, Funding Rounds, Funding Amount, Valuation, Revenue, Employees, Market Share, Profitable, Year Founded, Region
+- **Target**: Exit Status (IPO, Acquired, Private
+
+## 👤 Author
+
+**Your Name**
+- GitHub: [@PratikBalaji](https://github.com/PratikBalaji)
+- Email: balajipratik8@Gmail.com
