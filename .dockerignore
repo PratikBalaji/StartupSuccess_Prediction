@@ -1,0 +1,7 @@
+node_modules
+frontend
+.git
+.vscode
+venv
+__pycache__
+*.pyc

@@ -9,8 +9,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors()); // Allow all origins for dev simplicity
+app.use(cors());
 app.use(bodyParser.json());
+
+// Serve Static Files (React Build)
+app.use(express.static(path.join(__dirname, 'frontend/dist')));
 
 // Load metadata
 let metadata = { industries: [], regions: [] };
@@ -56,7 +59,6 @@ app.post('/predict', (req, res) => {
     pythonProcess.on('close', (code) => {
         if (code !== 0) {
             console.error(`Python script exited with code ${code}`);
-            console.error(`Error: ${error}`);
             return res.status(500).json({ error: 'Prediction failed', details: error });
         }
 
@@ -67,11 +69,15 @@ app.post('/predict', (req, res) => {
             }
             res.json(jsonResponse);
         } catch (e) {
-            console.error('Failed to parse Python output:', e);
-            console.error('Raw output:', result);
+            console.error('Failed to parse Python output');
             res.status(500).json({ error: 'Invalid response from model' });
         }
     });
+});
+
+// Catch-All Route: Serve React App
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
 });
 
 app.listen(PORT, () => {

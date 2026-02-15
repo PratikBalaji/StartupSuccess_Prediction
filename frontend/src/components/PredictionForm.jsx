@@ -20,7 +20,7 @@ const PredictionForm = ({ onPredict }) => {
 
     useEffect(() => {
         // Fetch metadata for dropdowns
-        axios.get('http://localhost:3000/api/metadata')
+        axios.get('/api/metadata')
             .then(response => {
                 setMetadata(response.data);
                 // Set defaults if available
@@ -51,7 +51,7 @@ const PredictionForm = ({ onPredict }) => {
         setError(null);
 
         try {
-            const response = await axios.post('http://localhost:3000/predict', formData);
+            const response = await axios.post('/predict', formData);
             onPredict(response.data);
         } catch (err) {
             console.error('Prediction error:', err);
