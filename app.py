@@ -62,9 +62,49 @@ def predict():
             for i, prob in enumerate(probabilities)
         }
         
+        
+        # Benchmarks (using scaler means for numerical stats)
+        # Note: scaler.mean_ corresponds to the 8 numerical columns in order
+        numerical_features_list = [
+            'Funding Rounds', 'Funding Amount (M USD)', 'Valuation (M USD)', 
+            'Revenue (M USD)', 'Employees', 'Market Share (%)', 
+            'Profitable', 'Year Founded'
+        ]
+        
+        benchmarks = {
+            feat: round(val, 2) 
+            for feat, val in zip(numerical_features_list, scaler.mean_)
+        }
+        
+        # Feature Importance
+        # Feature names corresponding to the 10 features passed to model
+        all_features = numerical_features_list + ['Industry', 'Region']
+        
+        feature_importance = {}
+        if hasattr(model, 'feature_importances_'):
+            importances = model.feature_importances_
+            # Normalize to percentage
+            total_importance = np.sum(importances)
+            feature_importance = {
+                feat: round((imp / total_importance) * 100, 2)
+                for feat, imp in zip(all_features, importances)
+            }
+        
         return jsonify({
             'prediction': prediction_label,
-            'probabilities': prob_dict
+            'probabilities': prob_dict,
+            'feature_importance': feature_importance,
+            'benchmarks': benchmarks,
+            'user_input': {
+                'Funding Rounds': funding_rounds,
+                'Funding Amount (M USD)': funding_amount,
+                'Valuation (M USD)': valuation,
+                'Revenue (M USD)': revenue,
+                'Employees': employees,
+                'Market Share (%)': market_share,
+                'Profitable': profitable,
+                'Year Founded': year_founded
+            }
         })
     
     except Exception as e:
