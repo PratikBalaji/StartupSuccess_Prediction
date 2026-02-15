@@ -2,7 +2,7 @@
 
 ML-powered web application that predicts startup success outcomes (IPO, Acquired, or Private) based on funding, industry, and company metrics.
 
-![Demo](https://startupsuccess-prediction.onrender.com/)
+https://startupsuccess-prediction.onrender.com/
 
 ## 📊 Dataset
 
