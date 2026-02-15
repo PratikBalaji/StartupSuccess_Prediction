@@ -10,9 +10,3 @@ https://startupsuccess-prediction.onrender.com/
 - **Size**: 500 startups
 - **Features**: Industry, Funding Rounds, Funding Amount, Valuation, Revenue, Employees, Market Share, Profitable, Year Founded, Region
 - **Target**: Exit Status (IPO, Acquired, Private
-
-## 👤 Author
-
-**Your Name**
-- GitHub: [@PratikBalaji](https://github.com/PratikBalaji)
-- Email: balajipratik8@Gmail.com
