@@ -2,8 +2,6 @@
 
 ML-powered web application that predicts startup success outcomes (IPO, Acquired, or Private) based on funding, industry, and company metrics.
 
-https://startupsuccess-prediction.onrender.com/
-
 ## 📊 Dataset
 
 - **Source**: [Kaggle - Startup Growth and Funding Trends](https://www.kaggle.com/datasets/samayashar/startup-growth-and-funding-trends)
