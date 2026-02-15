@@ -1,4 +1,4 @@
-# 🚀 Startup Success Rate Predictor
+# Startup Success Rate Predictor
 
 ML-powered web application that predicts startup success outcomes (IPO, Acquired, or Private) based on funding, industry, and company metrics.
 
