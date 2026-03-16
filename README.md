@@ -1,5 +1,6 @@
 # Startup Success Rate Predictor
 Link to deployed project: https://startupsuccess-prediction.onrender.com/
+
 ML-powered web application that predicts startup success outcomes (IPO, Acquired, or Private) based on funding, industry, and company metrics.
 
 ## 📊 Dataset
